@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Abrita - Header</title>
+  <!-- Font Awesome para íconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Reseteo básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Estilos para el header */
+    header {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 2rem;
+      background-color: #fff;
+      font-family: 'Times New Roman', Times, serif;
+      border-bottom: 1px solid #ddd;
+    }
+
+    /* Contenedor del logo y el nombre */
+    .logo-container {
+      display: flex;
+      align-items: center;
+      order: 0;
+    }
+
+    .logo-container img {
+      width: 40px;
+      height: auto;
+      margin-right: 0.5rem;
+    }
+
+    .logo-container h1 {
+      font-size: 1.95rem;
+      color: #333;
+      margin-top: 10px;
+      font-weight: 700;
+    }
+
+    /* Navegación */
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 400;
+      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 15px;
+      margin-left: 15px;
+      margin-right: 15px;
+      font-size: 1.2rem;
+    }
+
+    nav ul li a:hover {
+      color: #ff6600;
+    }
+
+    /* Botón de contacto */
+    .btn-contacto {
+      padding: 0.5rem 1.5rem;
+      background-color: transparent;
+      border: 2px solid #333;
+      border-radius: 20px;
+      color: #333;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-contacto:hover {
+      background-color: #333;
+      color: #fff;
+    }
+
+    /* Botón para el menú móvil */
+    .menu-toggle {
+      display: none;
+      font-size: 1.75rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      order: 1;
+      color: #333;
+    }
+
+    /* Estilos responsivos */
+    @media (max-width: 768px) {
+      header {
+        padding: 0.5rem 1rem;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      nav {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 250px;
+        background: white;
+        box-shadow: -2px 5px 10px rgba(0,0,0,0.1);
+        display: none;
+        flex-direction: column;
+        padding: 1rem 0;
+      }
+
+      nav.active {
+        display: flex;
+      }
+
+      nav ul {
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+      }
+
+      nav ul li {
+        width: 100%;
+        padding: 0.8rem 1.5rem;
+        border-bottom: 1px solid #eee;
+      }
+
+      .btn-contacto {
+        margin: 1rem 1.5rem 0;
+        align-self: flex-start;
+        width: calc(100% - 3rem);
+      }
+
+      nav ul li a {
+        font-size: 1rem;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <!-- Logo + Nombre -->
+  <div class="logo-container">
+    <img src="logo.jpg" alt="Logo de La Abvita">
+    <h1>La Abrita</h1>
+  </div>
+
+  <!-- Botón menú para móviles -->
+  <button class="menu-toggle" aria-label="Abrir menú">☰</button>
+
+  <!-- Menú de navegación -->
+  <nav id="main-nav">
+    <ul>
+      <li><a href="#"><i class="fas fa-home"></i>Inicio</a></li>
+      <li><a href="#"><i class="fas fa-users"></i>Sobre Nosotros</a></li>
+      <li><a href="#"><i class="fas fa-box-open"></i>Productos</a></li>
+    </ul>
+    <a href="#" class="btn-contacto"><i class="fas fa-envelope"></i>Contacto</a>
+  </nav>
+</header>
+
+<script>
+  const menuToggle = document.querySelector('.menu-toggle');
+  const nav = document.getElementById('main-nav');
+
+  menuToggle.addEventListener('click', () => {
+    nav.classList.toggle('active');
+  });
+
+  // Cerrar menú al hacer clic fuera
+  document.addEventListener('click', (e) => {
+    if(!nav.contains(e.target) && !menuToggle.contains(e.target)) {
+      nav.classList.remove('active');
+    }
+  });
+</script>
+
+</body>
+</html>
