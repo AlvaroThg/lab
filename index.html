@@ -5,20 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>La Abrita - Inicio</title>
   <style>
-    /* Estilos personalizados */
+    /* ================== ESTILOS GLOBALES ================== */
+    html {
+      scroll-behavior: smooth;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Times New Roman', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ================== SECCIÓN HERO ================== */
     .hero-section {
       height: 100vh;
       position: relative;
       overflow: hidden;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
     }
-
     .parallax-container {
       position: absolute;
       width: 100%;
       height: 120%;
       overflow: hidden;
+      border-top-left-radius: inherit;
+      border-top-right-radius: inherit;
     }
-
     .hero-bg {
       position: absolute;
       width: 100%;
@@ -28,85 +46,440 @@
       transform: scale(1.1);
       will-change: transform;
     }
-
     .hero-content {
       position: relative;
       z-index: 2;
-      max-width: 1200px;
-      margin: 0 0 0 8%;
-      padding: 0 2rem;
+      padding: 0 5%;
       height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       color: white;
-      font-family: 'Times New Roman', Times, serif;
+      text-align: left;
     }
-
     .hero-subtitle {
-      font-size: 4rem;
-      line-height: 1.1;
-      margin-bottom: 1rem;
-      max-width: 600px;
-      font-weight: 500; /* Negrita más sutil */
+      font-size: 3.5rem;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      font-weight: 400;
+      letter-spacing: -2px;
+      max-width: 50%;
     }
-
     .hero-title {
-      font-size: 10rem;
-      font-weight: 600; /* Negrita más sutil */
-      letter-spacing: -3px;
-      line-height: 0.9;
-      margin-top: -1rem;
+      font-size: 8rem;
+      font-weight: 300;
+      letter-spacing: -5px;
+      line-height: 0.8;
+      margin: 0;
     }
-
     .floating-image {
       position: absolute;
-      width: 800px;
-      height: 700px;
-      right: 25px;
+      width: 40vw;
+      height: 60vh;
+      right: 5%;
       top: 50%;
       transform: translateY(-50%);
       z-index: 3;
-      object-fit: contain;
-      filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
+      object-fit: cover;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
 
-    @media (max-width: 768px) {
-      .hero-section { height: 70vh; }
-      .hero-content { 
-        margin-left: 3%;
-        padding-bottom: 100px; /* Espacio para la imagen */
-      }
-      .hero-subtitle { 
-        font-size: 2rem;
-        max-width: 300px;
+    /* ================== CARRUSEL INFINITO ================== */
+    .carrusel-infinito {
+      width: 100%;
+      height: 600px;
+      overflow: hidden;
+      position: relative;
+      background-color: #F2EDE4;
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+      padding: 0;
+    }
+    .carrusel-track {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 25px;
+      animation: scrollCarrusel 12s infinite;
+      animation-timing-function: cubic-bezier(0.23,1,0.32,1);
+      will-change: transform;
+    }
+    .slide {
+      flex-shrink: 0;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+    /* Alterna entre slides anchos y altos */
+    .slide:nth-child(2n+1) {
+      min-width: 400px;
+      max-width: 400px;
+    }
+    .slide:nth-child(2n) {
+      min-width: 350px;
+      max-width: 350px;
+    }
+    .slide-content {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    .slide:nth-child(2n+1) .slide-content {
+      margin-top: 75px;
+    }
+    .item-img img {
+      display: block;
+      width: 100%;
+      object-fit: cover;
+      transition: filter 0.4s ease;
+    }
+    .item-img:hover img {
+      filter: grayscale(100%);
+    }
+    .overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      color: #fff;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+    }
+    .item-img:hover .overlay {
+      opacity: 1;
+    }
+    @keyframes scrollCarrusel {
+      0%   { transform: translateX(0); }
+      10%  { transform: translateX(0); }
+      20%  { transform: translateX(-10%); }
+      30%  { transform: translateX(-10%); }
+      40%  { transform: translateX(-20%); }
+      50%  { transform: translateX(-20%); }
+      60%  { transform: translateX(-30%); }
+      70%  { transform: translateX(-30%); }
+      80%  { transform: translateX(-40%); }
+      90%  { transform: translateX(-40%); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ================== SECCIÓN PARALLAX INTERMEDIO ================== */
+    .nueva-seccion {
+      height: 60vh;
+      position: relative;
+      overflow: hidden;
+    }
+    .seccion-bg {
+      position: absolute;
+      width: 100%;
+      height: 130%;
+      transform: scale(2.9);
+      will-change: transform;
+    }
+    .contenido-seccion {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .imagen-flotante {
+      width: 600px;
+      height: 50vh;
+      object-fit: cover;
+      position: absolute;
+      left: 35%;
+      transform: translateX(-60%);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      z-index: 3;
+    }
+    .label-container {
+      position: absolute;
+      right: 12%;
+      top: 50%;
+      transform: translateY(-50%);
+      text-align: left;
+      z-index: 4;
+    }
+    .label-1 {
+      font-size: 1.5rem;
+      font-style: italic;
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+    .label-2 {
+      font-size: 4rem;
+      font-style: italic;
+      line-height: 1.1;
+      color: #222;
+      max-width: 700px;
+    }
+
+    /* ================== PENÚLTIMA SECCIÓN ================== */
+    .penultima-seccion {
+      height: 140vh;
+      position: relative;
+      overflow: hidden;
+    }
+    .penultima-seccion img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      will-change: transform;
+    }
+
+    /* ================== SECCIÓN UBICACIÓN ================== */
+    .ubicacion-section {
+      width: 100%;
+      padding: 4rem 5%;
+      box-sizing: border-box;
+      display: flex;
+      flex-wrap: wrap;
+      background-color: #F2EDE4;
+      gap: 2rem;
+      justify-content: space-between;
+    }
+    /* Columna Izquierda: Mapa */
+    .ubicacion-map {
+      flex: 1 1 30%;
+      min-width: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ubicacion-map iframe {
+      width: 100%;
+      height: 500px;
+      border: 0;
+      border-radius: 8px;
+    }
+    /* Columna Central: Descripción */
+    .ubicacion-center {
+      flex: 1 1 35%;
+      min-width: 280px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+    }
+    .ubicacion-center h2 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    .ubicacion-center p {
+      font-size: 1.5rem;
+      line-height: 1.5;
+      margin: 0;
+    }
+    /* Columna Derecha: Información de contacto */
+    .ubicacion-info {
+      flex: 1 1 30%;
+      min-width: 280px;
+      background: #f7f7f7;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+    }
+    .ubicacion-info h3 {
+      font-size: 1.2rem;
+      color: #666;
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+    .ubicacion-info p {
+      font-size: 1.6rem;
+      margin: 0 0 1.5rem 0;
+      line-height: 1.4;
+    }
+    .btn-googlemaps {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      color: #fff;
+      background-color: #B79F83;
+      border: none;
+      border-radius: 24px;
+      text-decoration: none;
+      text-align: center;
+      cursor: pointer;
+      transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-googlemaps:hover {
+      background-color: #9A876E;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    /* ================== MEDIA QUERIES ================== */
+
+    /* ----- Para pantallas hasta 1024px ----- */
+    @media (max-width: 1024px) {
+      .hero-subtitle {
+        font-size: 2.5rem;
+        max-width: 60%;
       }
       .hero-title {
-        font-size: 4rem;
-        letter-spacing: -1px;
-        order: 1; /* Orden en móvil */
+        font-size: 6rem;
+      }
+      .floating-image {
+        width: 45vw;
+        height: 50vh;
+      }
+      .imagen-flotante {
+        width: 500px;
+      }
+      .label-2 {
+        font-size: 2.5rem;
+        max-width: 400px;
+      }
+      .ubicacion-center h2 {
+        font-size: 2.5rem;
+      }
+      .ubicacion-center p {
+        font-size: 1.3rem;
+      }
+      .ubicacion-info p,
+      .ubicacion-info h3 {
+        font-size: 1.3rem;
+      }
+    }
+
+    /* ----- Para pantallas hasta 768px ----- */
+    @media (max-width: 768px) {
+      /* Ajustes para la sección HERO */
+      .hero-content {
+        padding: 0 7%;
+        justify-content: flex-start;
+        padding-top: 15vh;
+        text-align: center;
+      }
+      .hero-subtitle {
+        font-size: 3rem;
+        max-width: 100%;
+        line-height: 1.2;
+        margin-bottom: 2rem;
+      }
+      .hero-title {
+        font-size: 8rem;
+        letter-spacing: -3px;
       }
       .floating-image {
         position: relative;
-        width: 250px;
-        height: 220px;
-        right: auto;
-        left: 0;
-        top: auto;
+        width: 100%;
+        height: 40vh;
+        right: 0;
+        top: 0;
         transform: none;
-        margin-top: 2rem;
-        order: 2; /* Posición después del título */
-        align-self: flex-start;
+        margin-top: 5rem;
+      }
+      /* Carrusel: Ajuste de slides */
+      .slide:nth-child(2n+1) {
+        min-width: 350px;
+        max-width: 350px;
+      }
+      .slide:nth-child(2n) {
+        min-width: 300px;
+        max-width: 300px;
+      }
+      .slide:nth-child(2n+1) .slide-content,
+      .slide:nth-child(2n) .slide-content {
+        margin-top: 50px;
+      }
+      .slide:nth-child(2n+1) .item-img img {
+        height: 250px;
+      }
+      .slide:nth-child(2n) .item-img img {
+        height: 400px;
+      }
+      /* Parallax intermedio: Centrado de imagen y textos */
+      .imagen-flotante {
+        position: relative;
+        width: 80%;
+        height: 50vh;
+        left: auto;
+        transform: none;
+        margin: 2rem auto;
+      }
+      .label-container {
+        position: static;
+        transform: none;
+        text-align: center;
+        padding: 2rem;
+      }
+      /* Ubicación: Pasar a formato en bloque */
+      .ubicacion-section {
+        flex-direction: column;
+        align-items: center;
+      }
+      .ubicacion-map,
+      .ubicacion-center,
+      .ubicacion-info {
+        flex: 1 1 100%;
+        max-width: 100%;
+      }
+      .ubicacion-center {
+        text-align: center;
       }
     }
 
+    /* ----- Para pantallas hasta 480px ----- */
     @media (max-width: 480px) {
-      .hero-subtitle { font-size: 1.5rem; }
-      .hero-title { font-size: 3rem; }
+      /* Sección HERO */
+      .hero-subtitle {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+      }
+      .hero-title {
+        font-size: 4rem;
+        letter-spacing: -3px;
+      }
       .floating-image {
-        width: 180px;
-        height: 160px;
-        margin-top: 1rem;
+        width: 100%;
+        height: 40vh;
+        margin-top: 2rem;
+      }
+      /* Carrusel: Ajuste de altura y tamaños */
+      .carrusel-infinito {
+        height: 400px;
+      }
+      .slide:nth-child(2n+1),
+      .slide:nth-child(2n) {
+        min-width: 100%;
+        max-width: 100%;
+      }
+      .slide:nth-child(2n+1) .item-img img {
+        height: 200px;
+      }
+      .slide:nth-child(2n) .item-img img {
+        height: 300px;
+      }
+      .slide {
+        margin-right: 1rem;
+      }
+      /* Ubicación: Adaptación de textos */
+      .ubicacion-map iframe {
+        height: 300px;
+      }
+      .ubicacion-center h2 {
+        font-size: 2rem;
+      }
+      .ubicacion-center p,
+      .ubicacion-info p,
+      .ubicacion-info h3 {
+        font-size: 1.2rem;
+      }
+      .btn-googlemaps {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
       }
     }
   </style>
@@ -115,19 +488,185 @@
 
   <div id="header-container"></div>
 
+  <!-- ====================== SECCIÓN HERO ====================== -->
   <section class="hero-section">
     <div class="parallax-container">
       <div class="hero-bg" id="parallax-bg"></div>
     </div>
-    <img src="2.jpg" alt="Icono decorativo" class="floating-image">
     <div class="hero-content">
       <h2 class="hero-subtitle">Tu lugar de conexión con la naturaleza</h2>
       <h1 class="hero-title">La Abrita</h1>
+      <img src="2.jpg" alt="CASAF" class="floating-image">
     </div>
   </section>
 
+  <!-- ===================== CARRUSEL INFINITO =================== -->
+  <section class="carrusel-infinito">
+    <div class="carrusel-track">
+      <!-- 6 slides originales (alternando wide y tall) -->
+      <div class="slide">
+        <div class="slide-content">
+          <div class="item-img">
+            <img src="1.jpg" alt="Slide 1">
+            <div class="overlay">Mensaje 1</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide">
+        <div class="slide-content">
+          <div class="item-img">
+            <img src="2.jpg" alt="Slide 2">
+            <div class="overlay">Mensaje 2</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide">
+        <div class="slide-content">
+          <div class="item-img">
+            <img src="3.jpg" alt="Slide 3">
+            <div class="overlay">Mensaje 3</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide">
+        <div class="slide-content">
+          <div class="item-img">
+            <img src="4.jpg" alt="Slide 4">
+            <div class="overlay">Mensaje 4</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide">
+        <div class="slide-content">
+          <div class="item-img">
+            <img src="5.jpg" alt="Slide 5">
+            <div class="overlay">Mensaje 5</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide">
+        <div class="slide-content">
+          <div class="item-img">
+            <img src="6.jpg" alt="Slide 6">
+            <div class="overlay">Mensaje 6</div>
+          </div>
+        </div>
+      </div>
+      <!-- Duplicados para lograr loop sin saltos -->
+      <div class="slide">
+        <div class="slide-content">
+          <div class="item-img">
+            <img src="1.jpg" alt="Slide 1 duplicado">
+            <div class="overlay">Mensaje 1</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide">
+        <div class="slide-content">
+          <div class="item-img">
+            <img src="2.jpg" alt="Slide 2 duplicado">
+            <div class="overlay">Mensaje 2</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide">
+        <div class="slide-content">
+          <div class="item-img">
+            <img src="3.jpg" alt="Slide 3 duplicado">
+            <div class="overlay">Mensaje 3</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide">
+        <div class="slide-content">
+          <div class="item-img">
+            <img src="4.jpg" alt="Slide 4 duplicado">
+            <div class="overlay">Mensaje 4</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide">
+        <div class="slide-content">
+          <div class="item-img">
+            <img src="5.jpg" alt="Slide 5 duplicado">
+            <div class="overlay">Mensaje 5</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide">
+        <div class="slide-content">
+          <div class="item-img">
+            <img src="6.jpg" alt="Slide 6 duplicado">
+            <div class="overlay">Mensaje 6</div>
+          </div>
+        </div>
+      </div>
+    </div> <!-- fin .carrusel-track -->
+  </section>
+
+  <!-- ==================== SECCIÓN PARALLAX INTERMEDIO ==================== -->
+  <section class="nueva-seccion">
+    <div class="parallax-container">
+      <div class="seccion-bg" id="seccion-bg" style="background: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('3.jpg') center/cover no-repeat;"></div>
+    </div>
+    <div class="contenido-seccion">
+      <img src="2.jpg" alt="Imagen central" class="imagen-flotante">
+      <div class="label-container">
+        <div class="label-1">La Abrita, desde 1876</div>
+        <div class="label-2">Enraizados en el alma de Sama, cosechados por el sol</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PENÚLTIMA SECCIÓN =================== -->
+  <section class="penultima-seccion">
+    <img src="5.jpg" id="penultima-bg" alt="Sección única">
+  </section>
+
+  <!-- ===================== SECCIÓN UBICACIÓN =================== -->
+  <section class="ubicacion-section">
+    <!-- Columna Izquierda: Mapa -->
+    <div class="ubicacion-map">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12486.372076738551!2d-64.8088544995311!3d-21.499076435529698!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94064949b3e3953d%3A0xdef200a6ff797e46!2sLa%20Abrita!5e0!3m2!1ses-419!2sbo!4v1743885428209!5m2!1ses-419!2sbo"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+
+    <!-- Columna Central: Texto descriptivo -->
+    <div class="ubicacion-center">
+      <h2>Nuestra Ubicación</h2>
+      <p>
+        Nuestra huerta se encuentra en un rincón privilegiado del sur de Bolivia, al pie de la imponente
+        Cordillera de Sama. A solo 7 km de la comunidad de La Victoria, en la provincia Méndez (Tarija), el
+        camino hacia La Abrita es un recorrido entre viñedos, aromas silvestres y paisajes que invitan a la
+        contemplación.
+      </p>
+    </div>
+
+    <!-- Columna Derecha: Información de dirección -->
+    <div class="ubicacion-info">
+      <h3>Ubicación</h3>
+      <p>
+        La Abrita Huerta Biodinámica <br>
+        Camino a La Victoria Km 7 <br>
+        Comunidad La Victoria, Provincia Méndez <br>
+        Tarija, Bolivia <br>
+        CP 1234
+      </p>
+      <a class="btn-googlemaps"
+         href="https://maps.app.goo.gl/m5z4Bvi4D8hm8WoR9"
+         target="_blank">
+         Ver en Google Maps
+      </a>
+    </div>
+  </section>
+  <!-- ================= FIN SECCIÓN UBICACIÓN ================= -->
+
   <script>
-    // Carga el header
+    // Carga el header de forma asíncrona
     fetch('header.html')
       .then(response => response.text())
       .then(data => {
@@ -135,7 +674,7 @@
       })
       .catch(error => console.error('Error al cargar el header:', error));
 
-    // Efecto parallax
+    // Efecto parallax para la sección HERO
     const parallaxBg = document.getElementById('parallax-bg');
     window.addEventListener('scroll', () => {
       const scrollY = window.pageYOffset;
@@ -143,5 +682,35 @@
     }, { passive: true });
   </script>
 
+    <script>
+    // Parallax para la sección intermedia (3.jpg)
+    const parallaxBg2 = document.getElementById('seccion-bg');
+    const nuevaSeccion = parallaxBg2.closest('.nueva-seccion');
+    window.addEventListener('scroll', () => {
+      const rect = nuevaSeccion.getBoundingClientRect();
+      const sectionHeight = rect.height;
+      let progress = 1 - (rect.bottom / (window.innerHeight + sectionHeight));
+      progress = Math.min(Math.max(progress, 0), 1);
+      const maxOffset = 120;
+      const offset = progress * maxOffset;
+      parallaxBg2.style.transform = `scale(1.3) translateY(${offset}px)`;
+    }, { passive: true });
+  </script>
+
+    <script>
+    // Parallax para la penúltima sección (5.jpg)
+    const parallaxBg3 = document.getElementById('penultima-bg');
+    const penultimaSeccion = document.querySelector('.penultima-seccion');
+    window.addEventListener('scroll', () => {
+      const rect = penultimaSeccion.getBoundingClientRect();
+      const sectionHeight = rect.height;
+      let progress = 1 - (rect.bottom / (window.innerHeight + sectionHeight));
+      progress = Math.min(Math.max(progress, 0), 1);
+      const maxOffset = 400;
+      const offset = progress * maxOffset;
+      parallaxBg3.style.transform = `scale(1.4) translateY(${offset}px)`;
+    }, { passive: true });
+    </script>
+  
 </body>
 </html>

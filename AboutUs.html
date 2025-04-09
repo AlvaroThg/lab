@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Abrita - About Us</title>
+  <style>
+
+    /* ================== SCROLL SUAVE ================== */
+    html {
+        scroll-behavior: smooth;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+        }
+
+    .parallax-container {
+      position: relative;
+      height: 100vh;
+      min-height: 400px;
+      overflow: hidden;
+    }
+
+    .parallax-bg {
+      position: absolute;
+      width: 100%;
+      height: 120%;
+      background-image: url('2.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      transform: scale(1.1);
+      transition: transform 0.01s ease-out;
+      will-change: transform;
+    }
+
+    .parallax-container::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .content-overlay {
+      position: relative;
+      z-index: 1;
+      color: white;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      margin-top: 100px;
+      margin-bottom: 100px;
+    }
+
+    .title-group {
+      margin-bottom: 2rem;
+      text-align: left;
+      padding-right: 15%;
+    }
+
+    .purpose-subtitle {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: #f0f0f0;
+      letter-spacing: 0.5px;
+    }
+
+    .purpose-main-title {
+      font-size: 4.5rem;
+      line-height: 1.1;
+      letter-spacing: 1px;
+    }
+
+    .purpose-text {
+      font-size: 1.4rem;
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 1.5rem auto;
+      text-align: justify;
+      text-justify: inter-word;
+      hyphens: auto;
+      padding: 0 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .parallax-container {
+        height: 60vh;
+        min-height: 300px;
+      }
+
+      .title-group {
+        padding-right: 5%;
+        text-align: center;
+      }
+
+      .purpose-subtitle {
+        font-size: 1.5rem;
+      }
+
+      .purpose-main-title {
+        font-size: 2.2rem;
+        padding: 0 1rem;
+      }
+
+      .purpose-text {
+        text-align: left;
+        padding: 0 1rem;
+        hyphens: none;
+      }
+
+      .parallax-bg {
+        background-attachment: scroll;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .purpose-subtitle {
+        font-size: 1.2rem;
+      }
+
+      .purpose-main-title {
+        font-size: 1.8rem;
+      }
+
+      .purpose-text {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="header-container"></div>
+
+  <section class="parallax-container">
+    <div class="parallax-bg" id="parallax-bg"></div>
+    <div class="content-overlay">
+      <div class="title-group">
+        <h2 class="purpose-subtitle"><i>Nuestro Propósito</i></h2>
+        <h1 class="purpose-main-title">Armonía con la naturaleza y equilibrio interior</h1>
+      </div>
+
+      <p class="purpose-text">En La Abrita creemos en el poder transformador de la naturaleza. Ubicada al pie de la majestuosa cordillera de Sama, en Tarija, Bolivia, nuestra finca orgánica y espacio de turismo sostenible invita a reconectar con lo esencial.</p>
+      
+      <p class="purpose-text">Cultivamos arándanos, uvas, frambuesas y hierbas aromáticas siguiendo principios biodinámicos que respetan los ritmos de la tierra. Pero La Abrita es mucho más que una finca: es un refugio para quienes buscan desconectarse del ruido y reencontrarse consigo mismos.</p>
+    </div>
+  </section>
+
+  <section class="para">
+    
+  </section>
+
+  <script>
+    // Carga el header
+    fetch('header.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('header-container').innerHTML = data;
+      })
+      .catch(error => console.error('Error al cargar el header:', error));
+
+    // Efecto parallax
+    const parallaxBg = document.getElementById('parallax-bg');
+    window.addEventListener('scroll', () => {
+      const scrollY = window.pageYOffset;
+      parallaxBg.style.transform = `scale(1.1) translateY(${scrollY * 0.3}px)`;
+    }, { passive: true });
+  </script>
+  
+</body>
+</html>
